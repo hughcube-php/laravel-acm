@@ -28,7 +28,7 @@ class EndpointHandler
      * Endpoint constructor.
      *
      * @param string $host
-     * @param int $port
+     * @param int    $port
      */
     public function __construct($host, $port, Client $client = null)
     {

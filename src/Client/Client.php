@@ -35,6 +35,7 @@ class Client
 
     /**
      * Client constructor.
+     *
      * @param array $config
      */
     public function __construct(array $config)
@@ -169,11 +170,13 @@ class Client
 
     /**
      * @param string $method
-     * @param Url $uri
-     * @param array $params
-     * @param array $options
-     * @return \Psr\Http\Message\ResponseInterface
+     * @param Url    $uri
+     * @param array  $params
+     * @param array  $options
+     *
      * @throws HttpException
+     *
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function request($method, Url $uri, array $params = [], array $options = [])
     {
@@ -198,11 +201,13 @@ class Client
 
     /**
      * @param array $config
+     *
      * @return static
      */
     public function withConfig(array $config)
     {
         $class = static::class;
+
         return new $class(array_merge($this->config, $config));
     }
 
@@ -211,9 +216,9 @@ class Client
      *
      * @param string $dataId
      *
-     * @return string
      * @throws \Exception
      *
+     * @return string
      */
     public function read(string $dataId)
     {
@@ -232,9 +237,9 @@ class Client
      * @param string $dataId
      * @param string $content
      *
-     * @return bool
      * @throws \Exception
      *
+     * @return bool
      */
     public function write(string $dataId, string $content)
     {
@@ -252,9 +257,9 @@ class Client
      *
      * @param string $dataId
      *
-     * @return bool
      * @throws \Exception
      *
+     * @return bool
      */
     public function remove(string $dataId)
     {
@@ -273,21 +278,21 @@ class Client
      * @param string $dataId
      * @param string $content
      *
-     * @return bool
      * @throws \Exception
      *
+     * @return bool
      */
     public function watch(string $dataId, string $content)
     {
-        $wordDelimiter = chr(37) . chr(48) . chr(50);
-        $lineDelimiter = chr(37) . chr(48) . chr(49);
+        $wordDelimiter = chr(37).chr(48).chr(50);
+        $lineDelimiter = chr(37).chr(48).chr(49);
 
         $args = [$dataId, $this->getGroup(), md5($content), $this->getNamespace()];
 
         $response = $this->request(
             'POST',
             $this->makeUrl('diamond-server/config.co'),
-            ['Probe-Modify-Request' => implode($wordDelimiter, $args) . $lineDelimiter]
+            ['Probe-Modify-Request' => implode($wordDelimiter, $args).$lineDelimiter]
         );
 
         return 200 == $response->getStatusCode();

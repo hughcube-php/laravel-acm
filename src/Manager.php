@@ -84,9 +84,9 @@ class Manager
      *
      * @param string $name
      *
-     * @return array
      * @throws \InvalidArgumentException
      *
+     * @return array
      */
     protected function configuration($name = null)
     {
@@ -103,6 +103,7 @@ class Manager
 
     /**
      * @param array|string $config
+     *
      * @return mixed|string[]
      */
     protected function formatConfig($config)
