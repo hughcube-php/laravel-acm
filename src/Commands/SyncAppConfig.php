@@ -38,11 +38,11 @@ class SyncAppConfig extends SyncConfig
     {
         if (null != $this->getOptionValue('AccessKeyID')) {
             return new Client([
-                'AccessKeyID' => $this->getOptionValue('AccessKeyID'),
+                'AccessKeyID'     => $this->getOptionValue('AccessKeyID'),
                 'AccessKeySecret' => $this->getOptionValue('AccessKeySecret'),
-                'Namespace' => $this->getOptionValue('Namespace'),
-                'Group' => $this->getOptionValue('Group'),
-                'Proxy' => $this->getOptionValue('Proxy'),
+                'Namespace'       => $this->getOptionValue('Namespace'),
+                'Group'           => $this->getOptionValue('Group'),
+                'Proxy'           => $this->getOptionValue('Proxy'),
             ]);
         }
 
@@ -51,11 +51,13 @@ class SyncAppConfig extends SyncConfig
 
     /**
      * @param string $name
+     *
      * @return array|bool|string|null
      */
     protected function getOptionValue($name)
     {
         $value = $this->option($name);
+
         return 'NULL' === $value ? null : $value;
     }
 }

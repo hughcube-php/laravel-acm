@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: hugh.li
  * Date: 2021/6/17
- * Time: 2:15 下午
+ * Time: 2:15 下午.
  */
 
 namespace HughCube\Laravel\ACM\Tests\Commands;
-
 
 use HughCube\Laravel\ACM\ACM;
 use HughCube\Laravel\ACM\Tests\TestCase;
@@ -19,13 +18,13 @@ class SyncAppConfigTest extends TestCase
     {
         $dataId = md5(random_bytes(100));
         $content = md5(random_bytes(100));
-        $file = sprintf("/tmp/%s", md5(random_bytes(100)));
+        $file = sprintf('/tmp/%s', md5(random_bytes(100)));
 
         $this->assertTrue(ACM::client()->write($dataId, $content));
 
         Artisan::call('acm:sync-app-config', [
-            'dataId' => $dataId,
-            'file' => $file,
+            'dataId'   => $dataId,
+            'file'     => $file,
             '--repeat' => 10,
         ]);
 
@@ -37,13 +36,13 @@ class SyncAppConfigTest extends TestCase
     {
         $dataId = md5(random_bytes(100));
         $content = md5(random_bytes(100));
-        $file = sprintf("/tmp/%s", md5(random_bytes(100)));
+        $file = sprintf('/tmp/%s', md5(random_bytes(100)));
 
         $this->assertTrue(ACM::client()->write($dataId, $content));
 
         Artisan::call('acm:sync-app-config', [
-            'dataId' => $dataId,
-            'file' => $file,
+            'dataId'   => $dataId,
+            'file'     => $file,
             '--repeat' => 10,
         ]);
 

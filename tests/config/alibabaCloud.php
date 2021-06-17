@@ -4,9 +4,9 @@ return [
     'default' => 'default',
     'clients' => [
         'default' => [
-            'Namespace' => '************',
-            'Group' => '************',
-            'AccessKeyID' => '************',
+            'Namespace'       => '************',
+            'Group'           => '************',
+            'AccessKeyID'     => '************',
             'AccessKeySecret' => '************',
         ],
     ],
