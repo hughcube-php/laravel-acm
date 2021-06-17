@@ -30,9 +30,9 @@ class SyncConfig extends Command
     /**
      * Execute the console command.
      *
-     * @return void
      * @throws \Exception
      *
+     * @return void
      */
     public function handle()
     {
@@ -59,9 +59,9 @@ class SyncConfig extends Command
     }
 
     /**
-     * @return bool
      * @throws \Exception
      *
+     * @return bool
      */
     protected function syncConfig(Client $client, $dataId, $file)
     {
@@ -92,6 +92,6 @@ class SyncConfig extends Command
             return null;
         }
 
-        return md5($contents) . '-' . crc32($contents);
+        return md5($contents).'-'.crc32($contents);
     }
 }

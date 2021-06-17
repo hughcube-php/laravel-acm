@@ -21,7 +21,7 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function boot()
     {
-        $source = realpath(dirname(__DIR__) . '/config/config.php');
+        $source = realpath(dirname(__DIR__).'/config/config.php');
 
         if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
             $this->publishes([$source => config_path('acm.php')]);
@@ -37,6 +37,7 @@ class ServiceProvider extends IlluminateServiceProvider
     {
         $this->app->singleton('acm', function ($app) {
             $config = $app->make('config')->get('acm', []);
+
             return new Manager($config);
         });
 
@@ -47,7 +48,7 @@ class ServiceProvider extends IlluminateServiceProvider
     {
         $this->commands([
             SyncAppConfig::class,
-            SyncConfig::class
+            SyncConfig::class,
         ]);
     }
 }
