@@ -6,53 +6,45 @@
  * Time: 11:36 下午.
  */
 
-namespace HughCube\Laravel\Package\Tests;
+namespace HughCube\Laravel\ACM\Tests;
 
-use HughCube\Laravel\Package\ServiceProvider as PackageServiceProvider;
+use HughCube\Laravel\ACM\ServiceProvider;
+use Illuminate\Auth\Passwords\PasswordResetServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 class TestCase extends OrchestraTestCase
 {
     /**
-     * @param \Illuminate\Foundation\Application $app
-     *
-     * @return array
+     * @inheritDoc
+     */
+    protected function getApplicationProviders($app)
+    {
+        $providers = parent::getApplicationProviders($app);
+
+        unset($providers[array_search(PasswordResetServiceProvider::class, $providers)]);
+
+        return $providers;
+    }
+
+    /**
+     * @inheritDoc
      */
     protected function getPackageProviders($app)
     {
         return [
-            PackageServiceProvider::class,
+            ServiceProvider::class,
         ];
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
+     * @inheritDoc
      */
     protected function getEnvironmentSetUp($app)
     {
-        $this->setupCache($app);
+        parent::getEnvironmentSetUp($app);
 
-        /** @var \Illuminate\Config\Repository $appConfig */
-        $appConfig = $app['config'];
-        $appConfig->set('captchaCode', (require dirname(__DIR__) . '/config/config.php'));
-    }
+        $app['config']->set('alibabaCloud', (require __DIR__ . '/config/alibabaCloud.php'));
 
-    /**
-     * @param \Illuminate\Foundation\Application $app
-     */
-    protected function setupCache($app)
-    {
-        /** @var \Illuminate\Config\Repository $appConfig */
-        $appConfig = $app['config'];
-
-        $appConfig->set('cache', [
-            'default' => 'default',
-            'stores' => [
-                'default' => [
-                    'driver' => 'file',
-                    'path' => sprintf('/tmp/test/%s', md5(serialize([__METHOD__]))),
-                ],
-            ],
-        ]);
+        $app['config']->set('acm', (require __DIR__ . '/config/acm.php'));
     }
 }

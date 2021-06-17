@@ -6,8 +6,11 @@
  * Time: 4:19 下午.
  */
 
-namespace HughCube\Laravel\Package;
+namespace HughCube\Laravel\ACM;
 
+use HughCube\Laravel\ACM\Client\Client;
+use HughCube\Laravel\AlibabaCloud\AlibabaCloud;
+use HughCube\Laravel\AlibabaCloud\Client as AlibabaCloudClient;
 use Illuminate\Support\Arr;
 
 class Manager
@@ -22,9 +25,9 @@ class Manager
     /**
      * The clients.
      *
-     * @var Store[]
+     * @var Client[]
      */
-    protected $stores = [];
+    protected $clients = [];
 
     /**
      * Manager constructor.
@@ -41,17 +44,17 @@ class Manager
      *
      * @param string|null $name
      *
-     * @return Store
+     * @return Client
      */
-    public function store($name = null)
+    public function client($name = null)
     {
         $name = null == $name ? $this->getDefaultClient() : $name;
 
-        if (isset($this->stores[$name])) {
-            return $this->stores[$name];
+        if (isset($this->clients[$name])) {
+            return $this->clients[$name];
         }
 
-        return $this->stores[$name] = $this->resolve($name);
+        return $this->clients[$name] = $this->resolve($name);
     }
 
     /**
@@ -59,11 +62,11 @@ class Manager
      *
      * @param string|null $name
      *
-     * @return Store
+     * @return Client
      */
     protected function resolve($name = null)
     {
-        return new Store();
+        return new Client($this->configuration($name));
     }
 
     /**
@@ -88,13 +91,43 @@ class Manager
     protected function configuration($name = null)
     {
         $name = $name ?: $this->getDefaultClient();
-        $stores = Arr::get($this->config, 'stores', []);
+        $clients = Arr::get($this->config, 'clients', []);
         $defaults = Arr::get($this->config, 'defaults', []);
 
-        if (is_null($store = Arr::get($stores, $name))) {
-            throw new \InvalidArgumentException("captcha store [{$name}] not configured.");
+        if (is_null($client = Arr::get($clients, $name))) {
+            throw new \InvalidArgumentException("acm client [{$name}] not configured.");
         }
 
-        return array_merge($store, $defaults);
+        return $this->formatConfig(array_merge($client, $defaults));
+    }
+
+    /**
+     * @param array|string $config
+     * @return mixed|string[]
+     */
+    protected function formatConfig($config)
+    {
+        if (is_string($config)) {
+            $config = ['alibabaCloud' => $config];
+        }
+
+        $alibabaCloud = null;
+        if (Arr::has($config, 'alibabaCloud') && $config['alibabaCloud'] instanceof AlibabaCloudClient) {
+            $alibabaCloud = $config['alibabaCloud'];
+        } elseif (Arr::has($config, 'alibabaCloud')) {
+            $alibabaCloud = AlibabaCloud::client($config['alibabaCloud']);
+        }
+
+        /** AccessKeyID */
+        if (empty($config['AccessKeyID']) && null !== $alibabaCloud) {
+            $config['AccessKeyID'] = $alibabaCloud->getAccessKeyId();
+        }
+
+        /** AccessKeySecret */
+        if (empty($config['AccessKeySecret']) && null !== $alibabaCloud) {
+            $config['AccessKeySecret'] = $alibabaCloud->getAccessKeySecret();
+        }
+
+        return $config;
     }
 }

@@ -2,7 +2,6 @@
 
 return [
     'default' => 'default',
-
     'clients' => [
         'default' => [
             'Namespace' => '************',

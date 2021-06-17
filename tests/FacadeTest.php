@@ -2,19 +2,19 @@
 /**
  * Created by PhpStorm.
  * User: hugh.li
- * Date: 2021/4/20
- * Time: 11:45 下午.
+ * Date: 2021/6/15
+ * Time: 7:14 下午.
  */
 
-namespace HughCube\Laravel\Package\Tests;
+namespace HughCube\Laravel\ACM\Tests;
 
-use HughCube\Laravel\Package\Facade;
-use HughCube\Laravel\Package\Manager;
+use HughCube\Laravel\ACM\ACM;
+use HughCube\Laravel\ACM\Client\Client;
 
 class FacadeTest extends TestCase
 {
-    public function testIsFacade()
+    public function testInstanceOf()
     {
-        $this->assertInstanceOf(Manager::class, Facade::getFacadeRoot());
+        $this->assertInstanceOf(Client::class, ACM::client());
     }
 }

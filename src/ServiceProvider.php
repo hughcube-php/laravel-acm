@@ -6,8 +6,10 @@
  * Time: 10:32 下午.
  */
 
-namespace HughCube\Laravel\Package;
+namespace HughCube\Laravel\ACM;
 
+use HughCube\Laravel\ACM\Commands\SyncAppConfig;
+use HughCube\Laravel\ACM\Commands\SyncConfig;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
@@ -22,9 +24,9 @@ class ServiceProvider extends IlluminateServiceProvider
         $source = realpath(dirname(__DIR__) . '/config/config.php');
 
         if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
-            $this->publishes([$source => config_path('package.php')]);
+            $this->publishes([$source => config_path('acm.php')]);
         } elseif ($this->app instanceof LumenApplication) {
-            $this->app->configure('package');
+            $this->app->configure('acm');
         }
     }
 
@@ -33,13 +35,19 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(
-            'package',
-            function ($app) {
-                $config = $app->make('config')->get('package', []);
+        $this->app->singleton('acm', function ($app) {
+            $config = $app->make('config')->get('acm', []);
+            return new Manager($config);
+        });
 
-                return new Manager($config);
-            }
-        );
+        $this->registerCommand();
+    }
+
+    protected function registerCommand()
+    {
+        $this->commands([
+            SyncAppConfig::class,
+            SyncConfig::class
+        ]);
     }
 }

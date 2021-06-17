@@ -6,19 +6,20 @@
  * Time: 10:31 下午.
  */
 
-namespace HughCube\Laravel\Package;
+namespace HughCube\Laravel\ACM;
 
+use HughCube\Laravel\ACM\Client\Client;
 use Illuminate\Support\Facades\Facade as IlluminateFacade;
 
 /**
  * Class Package.
  *
- * @method static Store store(string $name = null)
+ * @method static Client client(string $name = null)
  *
- * @see \HughCube\Laravel\Package\Manager
- * @see \HughCube\Laravel\Package\ServiceProvider
+ * @see \HughCube\Laravel\ACM\Manager
+ * @see \HughCube\Laravel\ACM\ServiceProvider
  */
-class Facade extends IlluminateFacade
+class ACM extends IlluminateFacade
 {
     /**
      * Get the registered name of the component.
@@ -27,6 +28,6 @@ class Facade extends IlluminateFacade
      */
     protected static function getFacadeAccessor()
     {
-        return 'package';
+        return 'acm';
     }
 }

@@ -1,5 +1,5 @@
 {
-    "name": "hughcube/laravel-package",
+    "name": "hughcube/laravel-acm",
     "description": "",
     "license": "MIT",
     "authors": [
@@ -10,29 +10,31 @@
     ],
     "require": {
         "php": "7.*|8.*",
-        "illuminate/support": ">=5.0"
+        "illuminate/support": "5.*|6.*|7.*|8.*",
+        "guzzlehttp/guzzle": "^6.0|^7.3",
+        "hughcube/purl": "^1.0"
     },
     "require-dev": {
-        "laravel/framework": "*",
         "laravel/lumen-framework": "*",
         "squizlabs/php_codesniffer": "*",
         "phpstan/phpstan": "*",
-        "orchestra/testbench": "*"
+        "orchestra/testbench": "*",
+        "hughcube/laravel-alibabacloud": "*"
     },
     "autoload": {
         "psr-4": {
-            "HughCube\\Laravel\\Package\\": "src"
+            "HughCube\\Laravel\\ACM\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "HughCube\\Laravel\\Package\\Tests\\": "tests"
+            "HughCube\\Laravel\\ACM\\Tests\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "HughCube\\Laravel\\Package\\ServiceProvider"
+                "HughCube\\Laravel\\ACM\\ServiceProvider"
             ]
         }
     },
