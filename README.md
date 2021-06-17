@@ -23,19 +23,13 @@
         <img src="https://img.shields.io/badge/php-%3E%3D%207.0-8892BF.svg" alt="PHP Versions Supported">
     </a>
     <a href="https://packagist.org/packages/hughcube/laravel-acm">
-        <img src="https://poser.pugx.org/hughcube-php/laravel-acm/version" alt="Latest Stable Version">
+        <img src="https://img.shields.io/packagist/v/hughcube/laravel-acm" alt="Latest Stable Version">
     </a>
     <a href="https://packagist.org/packages/hughcube/laravel-acm">
-        <img src="https://poser.pugx.org/hughcube-php/laravel-acm/downloads" alt="Total Downloads">
+        <img src="https://img.shields.io/packagist/dt/hughcube/laravel-acm" alt="Total Downloads">
     </a>
     <a href="https://github.com/hughcube-php/laravel-acm/blob/master/LICENSE">
         <img src="https://img.shields.io/badge/license-MIT-428f7e.svg" alt="License">
-    </a>
-    <a href="https://packagist.org/packages/hughcube/laravel-acm">
-        <img src="https://poser.pugx.org/hughcube-php/laravel-acm/v/unstable" alt="Latest Unstable Version">
-    </a>
-    <a href="https://packagist.org/packages/hughcube/laravel-acm">
-        <img src="https://poser.pugx.org/hughcube-php/laravel-acm/composerlock" alt="composer.lock available">
     </a>
 </p>
 
